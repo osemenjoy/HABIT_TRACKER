@@ -1,108 +1,50 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Habit Tracker</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 h-screen flex">
 
-    <!-- Sidebar -->
-    <aside id="sidebar" class="fixed lg:relative lg:w-64 bg-white shadow-lg p-6 h-full transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
-        <!-- Close Button -->
-        <button onclick="closeSidebar()" class="lg:hidden absolute top-4 right-4 text-gray-700 text-xl">✖</button>
-        
-        <h2 class="text-2xl font-bold text-blue-600 mb-6">Habit Tracker</h2>
-        <nav>
-            <ul class="space-y-4">
-                <li><a href="#" class="text-gray-700 flex items-center space-x-2 hover:text-blue-600">
-                    <span>🏠</span> <span>Dashboard</span></a></li>
-                <li><a href="#" class="text-gray-700 flex items-center space-x-2 hover:text-blue-600">
-                    <span>📋</span> <span>My Habits</span></a></li>
-                <li><a href="#" class="text-gray-700 flex items-center space-x-2 hover:text-blue-600">
-                    <span>📊</span> <span>Reports</span></a></li>
-                <li><a href="#" class="text-gray-700 flex items-center space-x-2 hover:text-blue-600">
-                    <span>⚙️</span> <span>Settings</span></a></li>
-                <li><a href="{% url 'logout' %}" class="text-red-600 flex items-center space-x-2 hover:text-red-800">
-                    <span>🚪</span> <span>Logout</span></a></li>
-            </ul>
-        </nav>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="flex-1 p-6">
-        <!-- Top Bar -->
-        <div class="flex justify-between items-center mb-6">
-            <!-- Sidebar Toggle Button -->
-            <button onclick="openSidebar()" class="lg:hidden text-gray-700 text-2xl">☰</button>
-            <h1 class="text-3xl font-bold text-gray-800">Dashboard</h1>
-            <button onclick="openModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                ➕ Add New Habit
-            </button>
-        </div>
-
-        <!-- Habit Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="bg-white p-4 shadow rounded-lg">
-                <h3 class="text-lg font-semibold text-gray-700">🏃 Morning Run</h3>
-                <p class="text-gray-500">Progress: 70%</p>
-                <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
-                    <div class="bg-blue-600 h-2 rounded-full" style="width: 70%;"></div>
+{% block content %}
+<!-- Habit List with Checkboxes -->
+<div class="max-w-4xl mx-auto">
+    <ul class="space-y-4">
+        {% for habit in habits %}
+        <li class="flex items-center justify-between bg-white p-4 shadow rounded-lg relative">
+            <div class="flex items-center">
+                <input type="checkbox" id="habit-{{ habit.id }}" class="mr-4">
+                <label for="habit-{{ habit.id }}" class="flex-1">
+                    <h3 class="text-lg font-semibold text-gray-700">{{ habit.name }}</h3>
+                    <p class="text-gray-500">Periodicity: {{ habit.periodicity }}</p>
+                </label>
+            </div>
+            <!-- Options Button -->
+            <div class="relative">
+                <button onclick="toggleMenu({{ habit.id }})" class="text-gray-700 text-xl">⋮</button>
+                <!-- Dropdown Menu -->
+                <div id="menu-{{ habit.id }}" class="hidden absolute right-0 bg-white shadow-lg rounded-lg w-32">
+                    <a href="{%  url 'edit_habit' habit.pk %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Edit</a>
+                    <a href= "{% url 'delete_habit' habit.pk %}" class="block px-4 py-2 text-red-600 hover:bg-gray-100">Delete</a>
                 </div>
             </div>
+        </li>
+        {% empty %}
+        <p class="text-gray-500">No habits to display.</p>
+        {% endfor %}
+    </ul>
+</div>
 
-            <div class="bg-white p-4 shadow rounded-lg">
-                <h3 class="text-lg font-semibold text-gray-700">📖 Read 10 Pages</h3>
-                <p class="text-gray-500">Progress: 50%</p>
-                <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
-                    <div class="bg-blue-600 h-2 rounded-full" style="width: 50%;"></div>
-                </div>
-            </div>
 
-            <div class="bg-white p-4 shadow rounded-lg">
-                <h3 class="text-lg font-semibold text-gray-700">💧 Drink Water</h3>
-                <p class="text-gray-500">Progress: 80%</p>
-                <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
-                    <div class="bg-blue-600 h-2 rounded-full" style="width: 80%;"></div>
-                </div>
-            </div>
-        </div>
-    </main>
+<script>
+    function openModal() {
+        document.getElementById("modal").classList.remove("hidden");
+    }
+    
+    function closeModal() {
+        document.getElementById("modal").classList.add("hidden");
+    }
 
-    <!-- Add Habit Modal -->
-    <div id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden flex items-center justify-center">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-            <h2 class="text-xl font-bold text-gray-800 mb-4">Add a New Habit</h2>
-            <form>
-                <label class="block text-sm font-medium text-gray-700">Habit Name</label>
-                <input type="text" class="w-full px-4 py-2 border rounded-lg mt-1" placeholder="E.g. Exercise, Read, Meditate">
-                
-                <button type="submit" class="w-full mt-4 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
-                    Save Habit
-                </button>
-            </form>
-            <button onclick="closeModal()" class="mt-4 text-gray-600 hover:text-gray-900">Cancel</button>
-        </div>
-    </div>
+    function toggleMenu(id) {
+        let menu = document.getElementById(`menu-${id}`);
+        menu.classList.toggle("hidden");
+    }
 
-    <!-- JavaScript for Sidebar & Modal -->
-    <script>
-        function openSidebar() {
-            document.getElementById("sidebar").classList.remove("-translate-x-full");
-        }
-        function closeSidebar() {
-            document.getElementById("sidebar").classList.add("-translate-x-full");
-        }
+</script>
 
-        function openModal() {
-            document.getElementById("modal").classList.remove("hidden");
-        }
-        function closeModal() {
-            document.getElementById("modal").classList.add("hidden");
-        }
-    </script>
-
-</body>
-</html>
+{% endblock content %}

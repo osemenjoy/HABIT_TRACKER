@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Edit Habit{% endblock title %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg mt-10">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Edit Habit</h1>
+
+    <form method="POST" class="space-y-4">
+        {% csrf_token %}
+        
+        <div>
+            <label for="id_name" class="block text-gray-700 font-medium">Habit Name</label>
+            <input type="text" name="name" id="id_name" value="{{ habit.name }}" placeholder="Enter habit name"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+        </div>
+
+        <div>
+            <label for="id_description" class="block text-gray-700 font-medium">Description</label>
+            <textarea name="description" id="id_description" placeholder="Describe your habit"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" required>{{ habit.description }}</textarea>
+        </div>
+
+        <div>
+            <label for="id_periodicity" class="block text-gray-700 font-medium">Periodicity</label>
+            <select name="periodicity" id="id_periodicity" 
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <option value="daily" {% if habit.periodicity == 'daily' %}selected{% endif %}>Daily</option>
+                <option value="weekly" {% if habit.periodicity == 'weekly' %}selected{% endif %}>Weekly</option>
+            </select>
+        </div>
+
+        <button type="submit" 
+            class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 text-lg">
+            Save Changes
+        </button>
+    </form>
+
+    <div class="mt-6 text-center">
+        <a href="{% url 'dashboard' %}" class="text-gray-600 hover:text-blue-600">← Back to Dashboard</a>
+    </div>
+</div>
+{% endblock content %}

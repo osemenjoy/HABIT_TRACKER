@@ -1,71 +1,55 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Habit Tracker</title>
+    <title>{% block title %}Habit Tracker{% endblock title %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
-
-    <!-- Navbar -->
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-            <div class="relative flex items-center justify-between h-16">
-                <!-- Mobile Menu Button -->
-                <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                    <button onclick="toggleMobileMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                        <span class="sr-only">Open main menu</span>
-                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
-                </div>
-
-                <!-- Navbar Brand -->
-                <div class="flex-1 flex items-center justify-between sm:items-stretch sm:justify-start">
-                    <div class="flex-shrink-0">
-                        <h1 class="text-2xl font-bold text-blue-600">Habit Tracker</h1>
-                    </div>
-                </div>
-
-                <!-- Navbar Links (desktop only) -->
-                <div class="hidden sm:block sm:ml-6">
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-lg font-medium">Dashboard</a>
-                        <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-lg font-medium">My Habits</a>
-                        <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-lg font-medium">Reports</a>
-                        <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-lg font-medium">Settings</a>
-                        <a href="{% url 'logout' %}" class="text-red-600 hover:text-red-800 px-3 py-2 rounded-md text-lg font-medium">Logout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="sm:hidden hidden">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="#" class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
-                <a href="#" class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">My Habits</a>
-                <a href="#" class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">Reports</a>
-                <a href="#" class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">Settings</a>
-                <a href="{% url 'logout' %}" class="text-red-600 hover:text-red-800 block px-3 py-2 rounded-md text-base font-medium">Logout</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- JavaScript for Mobile Menu -->
-    <script>
-        function toggleMobileMenu() {
-            const mobileMenu = document.getElementById("mobile-menu");
-            mobileMenu.classList.toggle("hidden"); // Toggle visibility of mobile menu
-        }
-    </script>
-
-    {% block content %}
-        
-    {% endblock content %}
+<body class="bg-gray-100 h-screen flex">
     
+    <!-- Sidebar -->
+    <aside id="sidebar" class="lg:w-64 bg-white shadow-lg p-6 h-full fixed top-0 left-0 overflow-y-auto">
+        <h2 class="text-2xl font-bold text-blue-600 mb-6">Habit Tracker</h2>
+        <nav>
+            <ul class="space-y-4">
+                <li>
+                    <a href="{% url 'dashboard' %}" class="text-gray-700 flex items-center space-x-2 hover:text-blue-600">
+                        <span>🏠</span> <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="text-gray-700 flex items-center space-x-2 hover:text-blue-600">
+                        <span>📋</span> <span>Daily Habits</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="text-gray-700 flex items-center space-x-2 hover:text-blue-600">
+                        <span>📋</span> <span>Weekly Habits</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}" class="text-red-600 flex items-center space-x-2 hover:text-red-800">
+                        <span>🚪</span> <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->  
+    <div class="flex-1 ml-64 p-6">
+        <!-- User Greeting and Add Habit Button -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-800">Hey {{ user.username }} </h1>
+            <a href="{% url 'create_habit' %}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                ➕ Add New Habit
+            </a>
+            
+        </div>
+
+        {% block content %}{% endblock content %}
+    </div>    
+
 </body>
 </html>
