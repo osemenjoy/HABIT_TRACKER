@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="bg-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+            <div class="relative flex items-center justify-between h-16">
+                <div class="flex-1 flex items-center justify-between sm:items-stretch sm:justify-start">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-2xl font-bold text-blue-600">Habit Tracker</h1>
+                    </div>
+                </div>
+                <div class="hidden sm:block sm:ml-6">
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-blue hover:text-blue-600 px-3 py-2 rounded-md text-lg font-medium">Home</a>
+                        <a href="#" class="text-blue hover:text-blue-600 px-3 py-2 rounded-md text-lg font-medium">About</a>
+                        <a href="#" class="text-blue hover:text-blue-600 px-3 py-2 rounded-md text-lg font-medium">Contact</a>
+                        <a href="{% url 'login' %}" class="text-blue hover:text-blue-600 px-3 py-2 rounded-md text-lg font-medium">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sign Up Form Section -->
+    <div class="bg-white shadow-lg rounded-2xl flex max-w-4xl w-full overflow-hidden mx-auto mt-16">
+        <!-- Left Side - Image -->
+        <div class="w-1/2 bg-cover bg-center hidden lg:block" style="background-image: url('{% static 'habit.jpg' %}');"></div>
+        
+        <!-- Right Side - Form -->
+        <div class="w-full lg:w-1/2 p-8">
+            <h2 class="text-3xl font-bold text-center text-gray-800">Create an Account</h2>
+            <p class="text-gray-500 text-center mb-6">Sign up to start tracking your habits</p>
+
+            <form method="POST" class="space-y-4">
+                {% csrf_token %}
+
+                <!-- Display Form Errors -->
+                {% if form.errors %}
+                    <div class="text-red-600">
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <p class="text-sm">{{ error }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Username</label>
+                    <input type="text" name="username" value="{{ form.username.value|default:'' }}" 
+                           class="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" name="password1" 
+                           class="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                </div>                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                    <input type="password" name="password2" 
+                           class="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                </div>
+
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+                    Sign Up
+                </button>
+
+                <p class="text-sm text-center text-gray-500">Already have an account? 
+                    <a href="{% url 'login' %}" class="text-blue-600 hover:underline">Login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
