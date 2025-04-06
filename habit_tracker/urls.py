@@ -20,7 +20,7 @@ from habit.views import SignUpView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include('django.contrib.auth.urls')),
-    path("habit/", include("habit.urls")),
+    path("accounts/", include('django.contrib.auth.urls')),
+    path("", include("habit.urls")),
     path("signup/", SignUpView.as_view(), name="signup"),
 ]

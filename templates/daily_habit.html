@@ -5,7 +5,7 @@
 <!-- Habit List with Checkboxes -->
 <div class="max-w-4xl mx-auto">
     <ul class="space-y-4">
-        {% for habit in habits %}
+        {% for habit in daily_habits %}
         <li class="flex items-center justify-between bg-white p-4 shadow rounded-lg relative">
             <div class="flex items-center">
                 <input type="checkbox" id="habit-{{ habit.id }}" class="mr-4">
@@ -25,13 +25,11 @@
                     <a href="{% url 'edit_habit' habit.pk %}" 
                     class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Edit</a>
                     <a href="{% url 'delete_habit' habit.pk %}" 
-                    class="block px-4 py-2 text-red-600 hover:bg-gray-100">Delete</a>                    
+                    class="block px-4 py-2 text-red-600 hover:bg-gray-100">Delete</a>
                     <a href="{% url 'detail_habit' habit.pk %}" 
                     class="block px-4 py-2 text-gray-700 hover:bg-gray-100">View Analytics</a>
                 </div>
             </div>
-
-
         </li>
         {% empty %}
         <p class="text-gray-500">No habits to display.</p>

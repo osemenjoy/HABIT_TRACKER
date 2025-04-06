@@ -19,19 +19,22 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="text-gray-700 flex items-center space-x-2 hover:text-blue-600">
+                    <a href="{% url 'daily_habit' %}" class="text-gray-700 flex items-center space-x-2 hover:text-blue-600">
                         <span>📋</span> <span>Daily Habits</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="text-gray-700 flex items-center space-x-2 hover:text-blue-600">
+                    <a href="{% url 'weekly_habit' %}" class="text-gray-700 flex items-center space-x-2 hover:text-blue-600">
                         <span>📋</span> <span>Weekly Habits</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'logout' %}" class="text-red-600 flex items-center space-x-2 hover:text-red-800">
-                        <span>🚪</span> <span>Logout</span>
-                    </a>
+                    <form method="post" action="{% url 'logout' %}?next={% url 'home' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="text-red-600 flex items-center space-x-2 hover:text-red-800">
+                            <span>🚪</span> <span>Logout</span>
+                        </button>
+                    </form>
                 </li>
             </ul>
         </nav>
