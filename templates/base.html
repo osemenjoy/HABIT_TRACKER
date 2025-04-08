@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Habit Tracker{% endblock title %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
 </head>
 <body class="bg-gray-100 h-screen flex">
     
     <!-- Sidebar -->
     <aside id="sidebar" class="lg:w-64 bg-white shadow-lg p-6 h-full fixed top-0 left-0 overflow-y-auto">
-        <h2 class="text-2xl font-bold text-blue-600 mb-6">Habit Tracker</h2>
+        <h2 class="text-2xl font-bold text-blue-600 mb-6">Rootine</h2>
         <nav>
             <ul class="space-y-4">
                 <li>

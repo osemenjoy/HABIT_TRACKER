@@ -1,12 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DeleteView, DetailView
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
-from .models import Habit
+from .models import Habit, HabitCompletion
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 from datetime import date, timedelta
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 
 """
@@ -18,13 +19,17 @@ class Dashboard(LoginRequiredMixin, ListView):
     context_object_name = "habits"
     template_name = "dashboard.html"
 
-    # gets the context data for the dashboard view
+    # Gets the context data for the dashboard view
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
+        # Add the completion status for each habit
+        today = date.today()
+        for habit in context['habits']:
+            habit.completed_today = habit.is_completed_on(today)  # Add completion status
         return context
     
-    # queryset to filter the habits for the logged in user
+    # Queryset to filter the habits for the logged-in user
     def get_queryset(self):
         return Habit.objects.filter(user=self.request.user)
 
@@ -32,7 +37,7 @@ class Dashboard(LoginRequiredMixin, ListView):
 Sign up view for the habit app
 This view is used to sign up a new user
 """
-class SignUpView(LoginRequiredMixin, CreateView):
+class SignUpView(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy("login")
     template_name = "signup.html"
@@ -134,3 +139,40 @@ class HabitDetailView(LoginRequiredMixin, DetailView):
 
         context['calendar_days'] = reversed(calendar_days)  # So the earliest date shows first
         return context
+    
+# todo 
+"""
+fix completion view, so that once user clicks on the checkbox, it will update the completion status of the habit
+compute streaks and longest streak
+
+"""
+
+def complete_habit(request, habit_id):
+    user = request.user
+    habit = get_object_or_404(Habit, id=habit_id, user=user)
+    today = date.today()
+
+    if habit.is_completed_on(today):
+        habit.completions.filter(date=today).delete()
+    else:
+        habit.completions.create(date=today, streak_length=habit.current_streak() + 1)
+
+    return redirect('dashboard')
+
+def undo_complete_habit(request, habit_id):
+    if request.method == "POST":
+        try:
+            habit = Habit.objects.get(id=habit_id)
+            completion_date = date.today()  # Use today's date for completion
+            
+            # Delete the completion if it exists
+            habit_completion = HabitCompletion.objects.filter(habit=habit, date=completion_date).first()
+            if habit_completion:
+                habit_completion.delete()
+
+            return JsonResponse({"status": "success", "message": "Habit completion undone"})
+
+        except Habit.DoesNotExist:
+            return JsonResponse({"status": "error", "message": "Habit not found"}, status=404)
+
+    return JsonResponse({"status": "error", "message": "Invalid request method"}, status=400)

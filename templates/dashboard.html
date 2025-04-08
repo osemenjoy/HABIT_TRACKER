@@ -3,35 +3,41 @@
 
 {% block content %}
 <!-- Habit List with Checkboxes -->
-<div class="max-w-4xl mx-auto">
-    <ul class="space-y-4">
+<div class="max-w-4xl mx-auto mt-10">
+    <ul id="habit-list" class="space-y-4">
         {% for habit in habits %}
-        <li class="flex items-center justify-between bg-white p-4 shadow rounded-lg relative">
+        <li id="habit-item-{{ habit.id }}"
+            class="habit-item flex items-center justify-between bg-white p-4 shadow rounded-lg relative"
+            data-habit-id="{{ habit.id }}" data-completed="{{ habit.completed_today }}">
+            
             <div class="flex items-center">
-                <input type="checkbox" id="habit-{{ habit.id }}" class="mr-4">
+                <input 
+                    type="checkbox" 
+                    id="habit-{{ habit.id }}" 
+                    class="habit-checkbox mr-4"
+                    onchange="completeHabit(this)"
+                    {% if habit.completed_today %} checked {% endif %}
+                >
                 <label for="habit-{{ habit.id }}" class="flex-1">
-                    <h3 class="text-lg font-semibold text-gray-700">{{ habit.name }}</h3>
+                    <h3 class="habit-name text-lg font-semibold text-gray-700">{{ habit.name }}</h3>
                     <p class="text-gray-500">Periodicity: {{ habit.periodicity }}</p>
                 </label>
             </div>
-            <!-- Options Button -->
+
+            <!-- Options Button and Dropdown -->
             <div class="relative group inline-block text-left">
-                <!-- Button -->
                 <button class="text-gray-700 text-xl">⋮</button>
 
-                <!-- Dropdown Menu -->
                 <div class="absolute right-0 bg-white shadow-lg rounded-lg w-32 z-50 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200"
                     style="top: 2.5rem;">
                     <a href="{% url 'edit_habit' habit.pk %}" 
-                    class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Edit</a>
+                       class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Edit</a>
                     <a href="{% url 'delete_habit' habit.pk %}" 
-                    class="block px-4 py-2 text-red-600 hover:bg-gray-100">Delete</a>                    
+                       class="block px-4 py-2 text-red-600 hover:bg-gray-100">Delete</a>                    
                     <a href="{% url 'detail_habit' habit.pk %}" 
-                    class="block px-4 py-2 text-gray-700 hover:bg-gray-100">View Analytics</a>
+                       class="block px-4 py-2 text-gray-700 hover:bg-gray-100">View Analytics</a>
                 </div>
             </div>
-
-
         </li>
         {% empty %}
         <p class="text-gray-500">No habits to display.</p>
@@ -39,21 +45,5 @@
     </ul>
 </div>
 
-
-<script>
-    function openModal() {
-        document.getElementById("modal").classList.remove("hidden");
-    }
-    
-    function closeModal() {
-        document.getElementById("modal").classList.add("hidden");
-    }
-
-    function toggleMenu(id) {
-        let menu = document.getElementById(`menu-${id}`);
-        menu.classList.toggle("hidden");
-    }
-
-</script>
 
 {% endblock content %}
