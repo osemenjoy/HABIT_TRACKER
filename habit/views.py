@@ -8,7 +8,7 @@ from django.utils import timezone
 from datetime import date, timedelta
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-
+from django.views.decorators.csrf import csrf_exempt
 
 """
 Dashboard view for the habit app
@@ -23,11 +23,13 @@ class Dashboard(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
-        # Add the completion status for each habit
         today = date.today()
-        for habit in context['habits']:
-            habit.completed_today = habit.is_completed_on(today)  # Add completion status
+        habits = context['habits']
+
+        context['incomplete_habits'] = [habit for habit in habits if not habit.is_completed_on(today)]
+        context['completed_habits'] = [habit for habit in habits if habit.is_completed_on(today)]
         return context
+
     
     # Queryset to filter the habits for the logged-in user
     def get_queryset(self):
@@ -103,6 +105,23 @@ def daily_habit(request):
     }
     return render(request, "daily_habit.html", context)
 
+@login_required
+def daily_habit(request):
+    user = request.user
+    today = date.today()
+    daily_habits = Habit.objects.filter(user=user, periodicity="daily")
+    
+    # Split into completed/incomplete like dashboard
+    incomplete_habits = [habit for habit in daily_habits if not habit.is_completed_on(today)]
+    completed_habits = [habit for habit in daily_habits if habit.is_completed_on(today)]
+    
+    context = {
+        "incomplete_habits": incomplete_habits,
+        "completed_habits": completed_habits,
+        "user": user,
+    }
+    return render(request, "daily_habit.html", context)
+
 """
 Weekly habit view for the habit app
 This view is used to display the weekly habits for the user
@@ -110,10 +129,17 @@ This view is used to display the weekly habits for the user
 @login_required
 def weekly_habit(request):
     user = request.user
+    today = date.today()
     weekly_habits = Habit.objects.filter(user=user).filter(periodicity="weekly")
+
+    # Split into completed/incomplete like dashboard
+    incomplete_habits = [habit for habit in weekly_habits if not habit.is_completed_on(today)]
+    completed_habits = [habit for habit in weekly_habits if habit.is_completed_on(today)]
+    
     context = {
-        "weekly_habits": weekly_habits,
-        "user": user
+        "incomplete_habits": incomplete_habits,
+        "completed_habits": completed_habits,
+        "user": user,
     }
     return render(request, "weekly_habit.html", context)
 
@@ -146,33 +172,47 @@ fix completion view, so that once user clicks on the checkbox, it will update th
 compute streaks and longest streak
 
 """
-
+@csrf_exempt
 def complete_habit(request, habit_id):
-    user = request.user
-    habit = get_object_or_404(Habit, id=habit_id, user=user)
-    today = date.today()
+    if request.method == "POST":
+        habit = Habit.objects.get(id=habit_id)
+        user = request.user
+        today = timezone.now().date()
 
-    if habit.is_completed_on(today):
-        habit.completions.filter(date=today).delete()
-    else:
-        habit.completions.create(date=today, streak_length=habit.current_streak() + 1)
+        # Check if habit is already marked as completed for today
+        if not habit.is_completed_on(today):
+            # Mark the habit as completed for today
+            HabitCompletion.objects.create(habit=habit, date=today, streak_length=habit.current_streak() + 1)
+        
+        return JsonResponse({"success": True})
 
-    return redirect('dashboard')
-
+# Handle undoing the completion of a habit
+@csrf_exempt
+@login_required
 def undo_complete_habit(request, habit_id):
     if request.method == "POST":
         try:
-            habit = Habit.objects.get(id=habit_id)
-            completion_date = date.today()  # Use today's date for completion
+            habit = get_object_or_404(Habit, id=habit_id, user=request.user)  # Ensure user owns the habit
+            today = timezone.now().date()
             
-            # Delete the completion if it exists
-            habit_completion = HabitCompletion.objects.filter(habit=habit, date=completion_date).first()
-            if habit_completion:
-                habit_completion.delete()
+            # Delete the completion record for today
+            deleted_count, _ = habit.completions.filter(date=today).delete()
+            
+            if deleted_count > 0:
+                return JsonResponse({
+                    "success": True,
+                    "message": "Habit completion undone successfully",
+                    "streak": habit.current_streak()  # Return updated streak
+                })
+            else:
+                return JsonResponse({
+                    "success": False,
+                    "error": "No completion record found for today"
+                }, status=404)
+                
+        except Exception as e:
+            return JsonResponse({
+                "success": False,
+                "error": str(e)
+            }, status=400)
 
-            return JsonResponse({"status": "success", "message": "Habit completion undone"})
-
-        except Habit.DoesNotExist:
-            return JsonResponse({"status": "error", "message": "Habit not found"}, status=404)
-
-    return JsonResponse({"status": "error", "message": "Invalid request method"}, status=400)

@@ -2,56 +2,121 @@
 {% load static %}
 
 {% block content %}
-<!-- Habit List with Checkboxes -->
-<div class="max-w-4xl mx-auto">
-    <ul class="space-y-4">
-        {% for habit in weekly_habits %}
-        <li class="flex items-center justify-between bg-white p-4 shadow rounded-lg relative">
+<div class="max-w-4xl mx-auto mt-10">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">Weekly Habits</h2>
+
+    <!-- Incomplete Habits -->
+    <ul id="incomplete-habits" class="space-y-4 mb-8">
+        {% for habit in incomplete_habits %}
+        <li id="habit-item-{{ habit.id }}"
+            class="habit-item flex items-center justify-between bg-white p-4 shadow rounded-lg"
+            data-habit-id="{{ habit.id }}" data-completed="false">
+
             <div class="flex items-center">
-                <input type="checkbox" id="habit-{{ habit.id }}" class="mr-4">
+                <input 
+                    type="checkbox" 
+                    id="habit-{{ habit.id }}" 
+                    class="habit-checkbox mr-4"
+                    onchange="completeHabit(this)">
+                
                 <label for="habit-{{ habit.id }}" class="flex-1">
-                    <h3 class="text-lg font-semibold text-gray-700">{{ habit.name }}</h3>
-                    <p class="text-gray-500">Periodicity: {{ habit.periodicity }}</p>
+                    <h3 class="habit-name text-lg font-semibold text-gray-700">{{ habit.name }}</h3>
+                    <p class="text-sm text-gray-500">Current streak: {{ habit.current_streak }} days</p>
                 </label>
             </div>
-            <!-- Options Button -->
-            <div class="relative group inline-block text-left">
-                <!-- Button -->
-                <button class="text-gray-700 text-xl">⋮</button>
 
-                <!-- Dropdown Menu -->
+            <!-- Actions Dropdown -->
+            <div class="relative group inline-block text-left">
+                <button class="text-gray-700 text-xl">⋮</button>
                 <div class="absolute right-0 bg-white shadow-lg rounded-lg w-32 z-50 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200"
                     style="top: 2.5rem;">
-                    <a href="{% url 'edit_habit' habit.pk %}" 
-                    class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Edit</a>
-                    <a href="{% url 'delete_habit' habit.pk %}" 
-                    class="block px-4 py-2 text-red-600 hover:bg-gray-100">Delete</a>
-                    <a href="{% url 'detail_habit' habit.pk %}" 
-                    class="block px-4 py-2 text-gray-700 hover:bg-gray-100">View Analytics</a>
+                    <a href="{% url 'edit_habit' habit.pk %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Edit</a>
+                    <a href="{% url 'delete_habit' habit.pk %}" class="block px-4 py-2 text-red-600 hover:bg-gray-100">Delete</a>
                 </div>
             </div>
         </li>
         {% empty %}
-        <p class="text-gray-500">No habits to display.</p>
+        <p class="text-gray-500">No incomplete daily habits.</p>
+        {% endfor %}
+    </ul>
+
+    <!-- Completed Habits -->
+    <h3 class="text-xl font-semibold text-green-600 mb-2">Completed Today</h3>
+    <ul id="completed-habits" class="space-y-4">
+        {% for habit in completed_habits %}
+        <li id="habit-item-{{ habit.id }}"
+            class="habit-item flex items-center justify-between bg-gray-50 p-4 shadow rounded-lg"
+            data-habit-id="{{ habit.id }}" data-completed="true">
+
+            <div class="flex items-center">
+                <input 
+                    type="checkbox" 
+                    id="habit-{{ habit.id }}" 
+                    class="habit-checkbox mr-4"
+                    onchange="completeHabit(this)"
+                    checked>
+                <label for="habit-{{ habit.id }}" class="flex-1">
+                    <h3 class="habit-name text-lg font-semibold text-gray-700">{{ habit.name }}</h3>
+                    <p class="text-sm text-gray-500">Current streak: {{ habit.current_streak }} days</p>
+                </label>
+            </div>
+
+            <div class="relative group inline-block text-left">
+                <button class="text-gray-700 text-xl">⋮</button>
+                <div class="absolute right-0 bg-white shadow-lg rounded-lg w-32 z-50 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200"
+                    style="top: 2.5rem;">
+                    <a href="{% url 'edit_habit' habit.pk %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Edit</a>
+                    <a href="{% url 'delete_habit' habit.pk %}" class="block px-4 py-2 text-red-600 hover:bg-gray-100">Delete</a>
+                </div>
+            </div>
+        </li>
+        {% empty %}
+        <p class="text-gray-500">No completed daily habits yet.</p>
         {% endfor %}
     </ul>
 </div>
 
 
 <script>
-    function openModal() {
-        document.getElementById("modal").classList.remove("hidden");
-    }
-    
-    function closeModal() {
-        document.getElementById("modal").classList.add("hidden");
-    }
-
-    function toggleMenu(id) {
-        let menu = document.getElementById(`menu-${id}`);
-        menu.classList.toggle("hidden");
+    async function completeHabit(checkbox) {
+        const listItem = checkbox.closest(".habit-item");
+        const habitId = listItem.dataset.habitId;
+        const isChecked = checkbox.checked;
+        
+        try {
+            const response = await fetch(
+                isChecked ? `/habit/complete-habit/${habitId}/` : `/habit/undo-complete-habit/${habitId}/`, 
+                {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            
+            const data = await response.json();
+            
+            if (!data.success) {
+                throw new Error(data.error || 'Failed to update habit');
+            }
+            
+            // Only update UI after successful backend operation
+            const incompleteList = document.getElementById("incomplete-habits");
+            const completedList = document.getElementById("completed-habits");
+            
+            if (isChecked) {
+                completedList.appendChild(listItem);
+            } else {
+                incompleteList.prepend(listItem);
+            }
+            
+        } catch (error) {
+            console.error('Error:', error);
+            checkbox.checked = !isChecked; // Revert UI on failure
+            alert('Failed to update habit. Please try again.');
+        }
     }
 
 </script>
-
-{% endblock content %}
+{% endblock %}
