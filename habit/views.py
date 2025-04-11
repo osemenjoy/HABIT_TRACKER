@@ -144,6 +144,10 @@ def weekly_habit(request):
     return render(request, "weekly_habit.html", context)
 
 
+"""Detailed view for the habit
+This view contains analytics such as current streak, longest streak, date streak started
+"""
+
 class HabitDetailView(LoginRequiredMixin, DetailView):
     model = Habit
     template_name = 'habit_detail.html'
@@ -165,12 +169,10 @@ class HabitDetailView(LoginRequiredMixin, DetailView):
 
         context['calendar_days'] = reversed(calendar_days)  # So the earliest date shows first
         return context
-    
-# todo 
-"""
-fix completion view, so that once user clicks on the checkbox, it will update the completion status of the habit
-compute streaks and longest streak
 
+
+"""
+This view handles the completion of a habit
 """
 @csrf_exempt
 def complete_habit(request, habit_id):
@@ -186,13 +188,16 @@ def complete_habit(request, habit_id):
         
         return JsonResponse({"success": True})
 
-# Handle undoing the completion of a habit
+
+"""
+ Handle undoing the completion of a habit
+"""
 @csrf_exempt
 @login_required
 def undo_complete_habit(request, habit_id):
     if request.method == "POST":
         try:
-            habit = get_object_or_404(Habit, id=habit_id, user=request.user)  # Ensure user owns the habit
+            habit = get_object_or_404(Habit, id=habit_id, user=request.user) 
             today = timezone.now().date()
             
             # Delete the completion record for today

@@ -80,45 +80,4 @@
     </ul>
 </div>
 
-<script>
-    async function completeHabit(checkbox) {
-        const listItem = checkbox.closest(".habit-item");
-        const habitId = listItem.dataset.habitId;
-        const isChecked = checkbox.checked;
-        
-        try {
-            const response = await fetch(
-                isChecked ? `/habit/complete-habit/${habitId}/` : `/habit/undo-complete-habit/${habitId}/`, 
-                {
-                    method: "POST",
-                    headers: {
-                        "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value,
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
-            
-            const data = await response.json();
-            
-            if (!data.success) {
-                throw new Error(data.error || 'Failed to update habit');
-            }
-            
-            // Only update UI after successful backend operation
-            const incompleteList = document.getElementById("incomplete-habits");
-            const completedList = document.getElementById("completed-habits");
-            
-            if (isChecked) {
-                completedList.appendChild(listItem);
-            } else {
-                incompleteList.prepend(listItem);
-            }
-            
-        } catch (error) {
-            console.error('Error:', error);
-            checkbox.checked = !isChecked; // Revert UI on failure
-            alert('Failed to update habit. Please try again.');
-        }
-    }
-</script>
 {% endblock content %}
