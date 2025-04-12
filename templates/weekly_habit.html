@@ -32,11 +32,12 @@
                     style="top: 2.5rem;">
                     <a href="{% url 'edit_habit' habit.pk %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Edit</a>
                     <a href="{% url 'delete_habit' habit.pk %}" class="block px-4 py-2 text-red-600 hover:bg-gray-100">Delete</a>
+                    <a href="{% url 'detail_habit' habit.pk %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">View Analytics</a>
                 </div>
             </div>
         </li>
         {% empty %}
-        <p class="text-gray-500">No incomplete daily habits.</p>
+        <p class="text-gray-500">No incomplete weekly habits.</p>
         {% endfor %}
     </ul>
 
@@ -67,11 +68,13 @@
                     style="top: 2.5rem;">
                     <a href="{% url 'edit_habit' habit.pk %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Edit</a>
                     <a href="{% url 'delete_habit' habit.pk %}" class="block px-4 py-2 text-red-600 hover:bg-gray-100">Delete</a>
+                    <a href="{% url 'detail_habit' habit.pk %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">View Analytics</a>
+
                 </div>
             </div>
         </li>
         {% empty %}
-        <p class="text-gray-500">No completed daily habits yet.</p>
+        <p class="text-gray-500">No completed weekly habits yet.</p>
         {% endfor %}
     </ul>
 </div>

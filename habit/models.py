@@ -36,9 +36,21 @@ class Habit(models.Model):
         return streak
 
     def longest_streak(self):
-        # Optional: Calculate longest streak (slightly more intensive)
-        # You can cache it for performance
-        return self.completions.aggregate(models.Max('streak_length'))['streak_length__max'] or 0
+        # Calculate the longest streak by iterating through completions
+        longest = 0
+        current_streak = 0
+        delta = timedelta(days=1 if self.periodicity == 'daily' else 7)
+        previous_date = None
+
+        for completion in self.completions.order_by('date'):
+            if previous_date and completion.date == previous_date + delta:
+                current_streak += 1
+            else:
+                current_streak = 1
+            longest = max(longest, current_streak)
+            previous_date = completion.date
+
+        return longest
 
     def streak_started(self):
         # Return the first date of current streak
