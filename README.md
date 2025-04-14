@@ -44,36 +44,6 @@ git clone https://github.com/osemenjoy/HABIT_TRACKER.git
 cd HABIT_TRACKER
 ```
 
-### 2. Create and activate a virtual environment
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate  # For Mac/Linux
-.venv\Scripts\activate     # For Windows
-
-```
-
-### 3. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-Here’s how you can structure the **Environment Setup** section in your `README.md`:
-
----
-
-## 🛠 Setup
-
-To get the project running on your local machine, follow these steps:
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/yourusername/yourproject.git
-cd yourproject
-```
-
 ### 2. Set up a virtual environment
 
 If you haven’t already created a virtual environment, you can do so with the following commands:
@@ -91,6 +61,8 @@ Install the project dependencies listed in `requirements.txt`:
 ```bash
 pip install -r requirements.txt
 ```
+
+
 
 ### 4. Create the `.env` file
 
