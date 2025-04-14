@@ -98,16 +98,6 @@ This view is used to display the daily habits for the user
 @login_required
 def daily_habit(request):
     user = request.user
-    daily_habits = Habit.objects.filter(user=user).filter(periodicity="daily")
-    context = {
-        "daily_habits": daily_habits,
-        "user": user,
-    }
-    return render(request, "daily_habit.html", context)
-
-@login_required
-def daily_habit(request):
-    user = request.user
     today = date.today()
     daily_habits = Habit.objects.filter(user=user, periodicity="daily")
     
@@ -121,6 +111,7 @@ def daily_habit(request):
         "user": user,
     }
     return render(request, "daily_habit.html", context)
+
 
 """
 Weekly habit view for the habit app

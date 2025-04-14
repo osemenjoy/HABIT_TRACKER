@@ -1,2 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# Environment variables
 .env
-.venv
+
+# Django-specific
+*.log
+local_settings.py
+
+# Static files
+staticfiles/
+static/
+
+
+# Tailwind / Node
+node_modules/
+dist/
+npm-debug.log
+
+# VS Code
+.vscode/

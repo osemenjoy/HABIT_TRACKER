@@ -18,3 +18,13 @@ Here’s a breakdown of the suggestions in simpler terms:
 If you only store streaks as a number, you **lose historical data** (e.g., if a user wants to see how their habits changed over time). By storing each habit completion separately, you can **recalculate streaks and trends anytime**, giving users more flexibility.  
 
 Let me know if you need further clarification! 🚀
+
+## Final Submission Suggestion
+Thanks for your submission, looks very good on paper! For the final phase, make sure you check the following boxes:
+
+-✅ Ensure your project is uploaded to GitHub and polished. Avoid committing unnecessary files such as pycache by using a .gitignore file.
+- ✅ Adhere to basic Python naming conventions for readability.
+- ✅ Structure your code in a modular fashion with logically split files to enhance user understanding.
+- ✅ Provide thorough code comments and documentation for easier navigation and comprehension of your code base.
+- Implement comprehensive unit tests for habit management (creation, editing, deletion) and for functionalities in the analytics module, ensuring all core features work as intended with predefined habit data.
+- ✅ In the Readme file, give clear instructions on how to run your project and a summary of the project features.
