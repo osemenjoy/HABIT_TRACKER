@@ -1,0 +1,195 @@
+[
+    {
+      "model": "auth.user",
+      "pk": 1,
+      "fields": {
+        "username": "demo_user",
+        "password": "pbkdf2_sha256$260000$demo", 
+        "is_superuser": false,
+        "is_staff": false,
+        "is_active": true
+      }
+    },
+    {
+      "model": "habits.habit",
+      "pk": 1,
+      "fields": {
+        "name": "Drink Water",
+        "description": "Drink 8 glasses of water",
+        "periodicity": "daily",
+        "created_at": "2024-03-01T08:00:00Z",
+        "user": 1
+      }
+    },
+    {
+      "model": "habits.habit",
+      "pk": 2,
+      "fields": {
+        "name": "Workout",
+        "description": "30 min workout",
+        "periodicity": "weekly",
+        "created_at": "2024-03-01T09:00:00Z",
+        "user": 1
+      }
+    },
+    {
+      "model": "habits.habit",
+      "pk": 3,
+      "fields": {
+        "name": "Read a Book",
+        "description": "Read 20 pages",
+        "periodicity": "daily",
+        "created_at": "2024-03-01T10:00:00Z",
+        "user": 1
+      }
+    },
+    {
+      "model": "habits.habitcompletion",
+      "pk": 1,
+      "fields": {
+        "habit": 1,
+        "date_completed": "2024-03-01T08:10:00Z"
+      }
+    },
+    {
+      "model": "habits.habitcompletion",
+      "pk": 2,
+      "fields": {
+        "habit": 1,
+        "date_completed": "2024-03-02T08:05:00Z"
+      }
+    },
+    {
+      "model": "habits.habitcompletion",
+      "pk": 3,
+      "fields": {
+        "habit": 2,
+        "date_completed": null
+      }
+    },
+    {
+      "model": "habits.habitcompletion",
+      "pk": 4,
+      "fields": {
+        "habit": 3,
+        "date_completed": null
+      }
+    },
+    {
+      "model": "habits.habitcompletion",
+      "pk": 5,
+      "fields": {
+        "habit": 1,
+        "date_completed": null
+      }
+    },
+    {
+      "model": "habits.habitcompletion",
+      "pk": 6,
+      "fields": {
+        "habit": 2,
+        "date_completed": null
+      }
+    },
+    {
+      "model": "habits.habitcompletion",
+      "pk": 7,
+      "fields": {
+        "habit": 3,
+        "date_completed": null
+      }
+    },
+    {
+      "model": "habits.habitcompletion",
+      "pk": 8,
+      "fields": {
+        "habit": 1,
+        "date_completed": null
+      }
+    },
+    {
+      "model": "habits.habitcompletion",
+      "pk": 9,
+      "fields": {
+        "habit": 2,
+        "date_completed": null
+      }
+    },
+    {
+      "model": "habits.habitcompletion",
+      "pk": 10,
+      "fields": {
+        "habit": 3,
+        "date_completed": null
+      }
+    },
+    {
+        "model": "auth.user",
+        "pk": 2,
+        "fields": {
+          "username": "another_user",
+          "password": "pbkdf2_sha256$260000$another", 
+          "is_superuser": false,
+          "is_staff": false,
+          "is_active": true
+        }
+      },
+      {
+        "model": "habits.habit",
+        "pk": 4,
+        "fields": {
+          "name": "Meditate",
+          "description": "10 minutes of meditation",
+          "periodicity": "daily",
+          "created_at": "2024-03-01T11:00:00Z",
+          "user": 2
+        }
+      },
+      {
+        "model": "habits.habit",
+        "pk": 5,
+        "fields": {
+          "name": "Learn a Language",
+          "description": "30 minutes of language learning",
+          "periodicity": "weekly",
+          "created_at": "2024-03-01T12:00:00Z",
+          "user": 2
+        }
+      },
+      {
+        "model": "habits.habitcompletion",
+        "pk": 11,
+        "fields": {
+          "habit": 4,
+          "date_completed": null
+        }
+      },
+      {
+        "model": "habits.habitcompletion",
+        "pk": 12,
+        "fields": {
+          "habit": 5,
+          "date_completed": null
+        }
+      },
+
+
+    {
+        "model": "habits.habitcompletion",
+        "pk": 1,
+        "fields": {
+          "habit": 1,
+          "date_completed": "2024-03-01T08:10:00Z"
+        }
+      },
+      {
+        "model": "habits.habitcompletion",
+        "pk": 2,
+        "fields": {
+          "habit": 1,
+          "date_completed": "2024-03-02T08:05:00Z"
+        }
+      }
+      
+  ]
+  

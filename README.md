@@ -95,13 +95,21 @@ This project uses a `.env` file to store sensitive information like the Django `
 python manage.py migrate
 ```
 
-### 6. Create a superuser (admin)
+### 6. Predefined Habits
+This project ships with 5 predefined habits (both daily and weekly types) for testing and development.
+
+To load the sample data:
+```bash
+python manage.py loaddata predefined_habits.json
+```
+
+### 7. Create a superuser (admin)
 
 ```bash
 python manage.py createsuperuser
 ```
 
-### 7. Start the development server
+### 8. Start the development server
 
 ```bash
 python manage.py runserver
