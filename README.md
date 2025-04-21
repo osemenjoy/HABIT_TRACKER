@@ -100,7 +100,7 @@ This project ships with 5 predefined habits (both daily and weekly types) for te
 
 To load the sample data:
 ```bash
-python manage.py loaddata predefined_habits.json
+python manage.py loaddata habit_data.json
 ```
 
 ### 7. Create a superuser (admin)

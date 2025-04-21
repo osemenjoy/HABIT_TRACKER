@@ -19,7 +19,15 @@ class Habit(models.Model):
         return self.name
     
     def is_completed_on(self, day):
-        return self.completions.filter(date=day).exists()
+        if self.periodicity == 'daily':
+            return self.completions.filter(date=day).exists()
+        elif self.periodicity == 'weekly':
+            # Determine the start and end of the current week
+            start_of_week = day - timedelta(days=day.weekday())  # Monday
+            end_of_week = start_of_week + timedelta(days=6)      # Sunday
+            return self.completions.filter(date__range=(start_of_week, end_of_week)).exists()
+        return False
+
     
     def is_completed_in_week(self, week_start):
         # Check if any completion exists in the week starting from week_start
