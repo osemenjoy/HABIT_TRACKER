@@ -26,5 +26,5 @@ Thanks for your submission, looks very good on paper! For the final phase, make 
 - ✅ Adhere to basic Python naming conventions for readability.
 - ✅ Structure your code in a modular fashion with logically split files to enhance user understanding.
 - ✅ Provide thorough code comments and documentation for easier navigation and comprehension of your code base.
-- Implement comprehensive unit tests for habit management (creation, editing, deletion) and for functionalities in the analytics module, ensuring all core features work as intended with predefined habit data.
+- ✅ Implement comprehensive unit tests for habit management (creation, editing, deletion) and for functionalities in the analytics module, ensuring all core features work as intended with predefined habit data.
 - ✅ In the Readme file, give clear instructions on how to run your project and a summary of the project features.
