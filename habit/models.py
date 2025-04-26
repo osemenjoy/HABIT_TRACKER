@@ -117,7 +117,6 @@ class Habit(models.Model):
 class HabitCompletion(models.Model):
     habit = models.ForeignKey(Habit, on_delete=models.CASCADE, related_name='completions')
     date = models.DateField()
-    streak_length = models.PositiveIntegerField(default=0)  
 
     class Meta:
         unique_together = ('habit', 'date')

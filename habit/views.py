@@ -175,7 +175,7 @@ def complete_habit(request, habit_id):
         # Check if habit is already marked as completed for today
         if not habit.is_completed_on(today):
             # Mark the habit as completed for today
-            HabitCompletion.objects.create(habit=habit, date=today, streak_length=habit.current_streak() + 1)
+            HabitCompletion.objects.create(habit=habit, date=today)
         
         return JsonResponse({"success": True})
 
