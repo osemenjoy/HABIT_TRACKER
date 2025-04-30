@@ -70,9 +70,17 @@ This project uses a `.env` file to store sensitive information like the Django `
 
 1. Create a new `.env` file:
 
-    ```bash
-    touch .env
-    ```
+   - **macOS/Linux:**
+     ```bash
+     touch .env
+     ```
+
+   - **Windows (Command Prompt):**
+     ```cmd
+     echo.>.env
+     ```
+
+
 
 2. **Generate a new Django `SECRET_KEY`:**
 
@@ -92,22 +100,21 @@ This project uses a `.env` file to store sensitive information like the Django `
 ### 5. Run migrations to create the database
 
 ```bash
-python manage.py makemigrations
 python manage.py migrate
 ```
 
-### 6. Predefined Habits
+### 6. Create a superuser (admin)
+
+```bash
+python manage.py createsuperuser
+```
+
+### 7. Predefined Habits
 This project ships with 5 predefined habits (both daily and weekly types) for testing and development.
 
 To load the sample data:
 ```bash
 python manage.py loaddata habit_data.json
-```
-
-### 7. Create a superuser (admin)
-
-```bash
-python manage.py createsuperuser
 ```
 
 ### 8. Start the development server
@@ -119,3 +126,34 @@ python manage.py runserver
 Visit [http://127.0.0.1:8000](http://127.0.0.1:8000) to view the app.
 
 ---
+
+
+## 🚀 How to Use the App
+
+1. **Start the development server**  
+   Run the Django server with:
+
+   ```bash
+   python manage.py runserver
+   ```
+
+2. **Visit the App**  
+   Open your browser and go to:  
+   [http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+3. **Login**  
+   Use your superuser credentials to log in.
+
+4. **Create a Habit**  
+   - On the top-right corner of the navigation bar, click the blue **"Create Habit"** button.
+   - Fill out the form to define your new habit.
+   - Submit the form to save it.
+
+5. **Manage Your Habits**  
+   - Next to each habit, click the **three-dot menu** to:
+     - ✅ **Edit** the habit  
+     - ❌ **Delete** the habit  
+     - 📊 **View Analytics** to track your progress
+
+---
+

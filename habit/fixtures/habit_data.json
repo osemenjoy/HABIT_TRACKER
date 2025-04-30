@@ -25,18 +25,6 @@
 },
 {
     "model": "habit.habit",
-    "pk": 10,
-    "fields": {
-        "name": "Sleep child",
-        "description": "yhh sleep",
-        "user": 2,
-        "periodicity": "daily",
-        "created_at": "2025-04-03T19:42:12.571Z",
-        "updated_at": "2025-04-03T19:42:52.931Z"
-    }
-},
-{
-    "model": "habit.habit",
     "pk": 12,
     "fields": {
         "name": "Practice Django",
