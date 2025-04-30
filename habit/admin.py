@@ -7,6 +7,7 @@ class HabitAdmin(admin.ModelAdmin):
 admin.site.register(Habit, HabitAdmin)
 
 class HabitCompletionAdmin(admin.ModelAdmin):
+    
     list_display = ('habit', 'date')
     list_filter = ('habit', 'date')
     search_fields = ('habit__name',)

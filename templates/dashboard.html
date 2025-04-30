@@ -4,6 +4,23 @@
 {% block content %}
 <div class="max-w-4xl mx-auto mt-10">
 
+    <!-- Habit with Longest Streak -->
+    <div class="bg-blue-50 p-4 shadow rounded-lg mb-8">
+        <h3 class="text-xl font-semibold text-blue-600 mb-2">Habit with Longest Streak</h3>
+        {% if longest_streak_habit %}
+        <div class="flex items-center justify-between">
+            <div>
+                <h4 class="text-lg font-semibold text-gray-700">{{ longest_streak_habit.name }}</h4>
+                <p class="text-gray-500">Streak: {{ longest_streak_habit.streak }} days</p>
+                <p class="text-gray-500">Periodicity: {{ longest_streak_habit.periodicity }}</p>
+            </div>
+            <a href="{% url 'detail_habit' longest_streak_habit.pk %}" class="text-blue-600 hover:underline">View Details</a>
+        </div>
+        {% else %}
+        <p class="text-gray-500">No habits available to display the longest streak.</p>
+        {% endif %}
+    </div>
+
     <h2 class="text-2xl font-bold text-gray-800 mb-4">All Habits</h2>
 
     <!-- Incomplete Habits -->

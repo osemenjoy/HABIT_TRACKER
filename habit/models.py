@@ -4,6 +4,10 @@ from datetime import date, timedelta
 
 
 class Habit(models.Model):
+    """
+    Habit model
+    Stores the details of a habit, including its name, description, user, periodicity,
+    """
     PERIODICITY = [
         ("daily", "Daily"),
         ("weekly", "Weekly")
@@ -19,6 +23,12 @@ class Habit(models.Model):
         return self.name
     
     def is_completed_on(self, day):
+
+        """
+        Check if the habit was completed on a specific day.
+        - For daily habits: check if the completion exists for that day.
+        - For weekly habits: check if any completion exists in the week of that day.
+        """
         if self.periodicity == 'daily':
             return self.completions.filter(date=day).exists()
         elif self.periodicity == 'weekly':
@@ -62,6 +72,11 @@ class Habit(models.Model):
 
 
     def longest_streak(self):
+        """
+        Returns the longest streak of completed habits.
+        - For daily habits: count the longest consecutive days completed.
+        - For weekly habits: count the longest consecutive weeks with at least one completion.
+        """
         longest = 0
         current_streak = 0
         previous_period = None
@@ -104,7 +119,11 @@ class Habit(models.Model):
 
 
     def streak_started(self):
-        # Return the first date of current streak
+        """
+        Returns the date when the current streak started.
+        - For daily habits: the first date of the current streak.
+        - For weekly habits: the first date of the current streak.
+        """
         today = date.today()
         day_offset = 0
         delta = timedelta(days=1 if self.periodicity == 'daily' else 7)
@@ -115,6 +134,10 @@ class Habit(models.Model):
         return today - delta * (day_offset - 1) if day_offset > 0 else None    
 
 class HabitCompletion(models.Model):
+    """
+    Habit completion model
+    Stores the event of a habit being completed on a specific date.
+    """
     habit = models.ForeignKey(Habit, on_delete=models.CASCADE, related_name='completions')
     date = models.DateField()
 

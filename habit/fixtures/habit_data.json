@@ -1,0 +1,858 @@
+[
+{
+    "model": "habit.habit",
+    "pk": 5,
+    "fields": {
+        "name": "wakeup",
+        "description": "it's time",
+        "user": 1,
+        "periodicity": "daily",
+        "created_at": "2025-04-03T11:59:20.734Z",
+        "updated_at": "2025-04-11T12:57:55.075Z"
+    }
+},
+{
+    "model": "habit.habit",
+    "pk": 7,
+    "fields": {
+        "name": "Drink Bournvita",
+        "description": "Sipppppppp",
+        "user": 1,
+        "periodicity": "weekly",
+        "created_at": "2025-04-03T12:14:35.185Z",
+        "updated_at": "2025-04-11T12:57:48.580Z"
+    }
+},
+{
+    "model": "habit.habit",
+    "pk": 10,
+    "fields": {
+        "name": "Sleep child",
+        "description": "yhh sleep",
+        "user": 2,
+        "periodicity": "daily",
+        "created_at": "2025-04-03T19:42:12.571Z",
+        "updated_at": "2025-04-03T19:42:52.931Z"
+    }
+},
+{
+    "model": "habit.habit",
+    "pk": 12,
+    "fields": {
+        "name": "Practice Django",
+        "description": "practiceeee",
+        "user": 1,
+        "periodicity": "daily",
+        "created_at": "2025-04-11T10:45:57.244Z",
+        "updated_at": "2025-04-11T10:45:57.244Z"
+    }
+},
+{
+    "model": "habit.habit",
+    "pk": 13,
+    "fields": {
+        "name": "Go to work",
+        "description": "Cadburryy",
+        "user": 1,
+        "periodicity": "weekly",
+        "created_at": "2025-04-11T10:56:09.487Z",
+        "updated_at": "2025-04-11T10:56:09.487Z"
+    }
+},
+{
+    "model": "habit.habit",
+    "pk": 14,
+    "fields": {
+        "name": "House chores",
+        "description": "work mennn",
+        "user": 1,
+        "periodicity": "daily",
+        "created_at": "2025-04-11T13:38:42.527Z",
+        "updated_at": "2025-04-11T13:38:42.527Z"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 39,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-11"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 50,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-11"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 52,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-12"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 53,
+    "fields": {
+        "habit": 7,
+        "date": "2025-04-12"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 54,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-12"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 55,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-12"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 56,
+    "fields": {
+        "habit": 13,
+        "date": "2025-04-12"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 57,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-14"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 58,
+    "fields": {
+        "habit": 13,
+        "date": "2025-04-14"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 59,
+    "fields": {
+        "habit": 7,
+        "date": "2025-04-14"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 60,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-14"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 61,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-14"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 62,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-15"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 65,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-15"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 66,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-15"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 67,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-21"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 68,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-21"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 69,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-21"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 70,
+    "fields": {
+        "habit": 13,
+        "date": "2025-04-21"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 71,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-22"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 72,
+    "fields": {
+        "habit": 7,
+        "date": "2025-04-22"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 73,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-22"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 74,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-22"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 75,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-26"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 76,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-26"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 77,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-26"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 78,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-23"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 79,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-17"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 80,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-18"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 81,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-24"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 82,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-25"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 83,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-01"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 84,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-02"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 85,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-03"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 86,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-04"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 87,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-05"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 90,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-01"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 91,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-02"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 92,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-03"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 93,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-04"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 94,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-05"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 95,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-01"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 96,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-02"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 97,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-03"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 98,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-04"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 99,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-05"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 100,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-27"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 101,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-27"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 102,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-27"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 103,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-23"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 104,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-24"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 105,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-25"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 106,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-23"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 107,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-24"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 108,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-25"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 109,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-06"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 110,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-07"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 111,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-08"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 112,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-09"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 113,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-10"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 114,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-13"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 115,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-16"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 116,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-19"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 117,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-20"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 118,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-06"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 119,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-07"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 120,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-08"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 121,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-09"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 122,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-10"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 123,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-13"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 124,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-16"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 125,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-17"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 126,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-18"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 127,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-19"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 128,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-20"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 129,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-06"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 130,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-07"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 131,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-08"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 132,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-09"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 133,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-10"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 134,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-11"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 135,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-13"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 136,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-16"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 137,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-17"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 138,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-18"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 139,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-19"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 140,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-20"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 141,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-28"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 142,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-28"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 143,
+    "fields": {
+        "habit": 7,
+        "date": "2025-04-28"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 144,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-28"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 145,
+    "fields": {
+        "habit": 13,
+        "date": "2025-04-28"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 146,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-29"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 147,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-29"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 148,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-29"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 149,
+    "fields": {
+        "habit": 5,
+        "date": "2025-04-30"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 150,
+    "fields": {
+        "habit": 14,
+        "date": "2025-04-30"
+    }
+},
+{
+    "model": "habit.habitcompletion",
+    "pk": 151,
+    "fields": {
+        "habit": 12,
+        "date": "2025-04-30"
+    }
+}
+]

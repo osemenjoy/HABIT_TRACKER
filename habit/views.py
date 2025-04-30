@@ -10,11 +10,13 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
-"""
-Dashboard view for the habit app
-This view is used to display the dashboard for the user
-"""
+
 class Dashboard(LoginRequiredMixin, ListView):
+    """
+    Dashboard view for the habit app
+    This view is used to display the dashboard for the user
+    """
+
     model = Habit
     context_object_name = "habits"
     template_name = "dashboard.html"
@@ -28,6 +30,18 @@ class Dashboard(LoginRequiredMixin, ListView):
 
         context['incomplete_habits'] = [habit for habit in habits if not habit.is_completed_on(today)]
         context['completed_habits'] = [habit for habit in habits if habit.is_completed_on(today)]
+
+        # Calculate longest streak habit
+        longest_streak_habit = None
+        max_streak = 0
+
+        for habit in habits:
+            streak = habit.longest_streak()
+            if streak > max_streak:
+                max_streak = streak
+                longest_streak_habit = habit
+
+        context['longest_streak_habit'] = longest_streak_habit
         return context
 
     
@@ -35,21 +49,23 @@ class Dashboard(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Habit.objects.filter(user=self.request.user)
 
-"""
-Sign up view for the habit app
-This view is used to sign up a new user
-"""
+
 class SignUpView(CreateView):
+    """
+    Sign up view for the habit app
+    This view is used to sign up a new user
+    """
     form_class = UserCreationForm
     success_url = reverse_lazy("login")
     template_name = "signup.html"
 
 
-"""
-Habit create view for the habit app
-This view is used to create a new habit
-"""
+
 class HabitCreateView(LoginRequiredMixin, CreateView):
+    """
+    Habit create view for the habit app
+    This view is used to create a new habit
+    """
     model = Habit
     fields = ["name", "description", "periodicity"]
     success_url = reverse_lazy("dashboard")
@@ -60,11 +76,12 @@ class HabitCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
     
 
-"""
-Habit update view for the habit app
-This view is used to update an existing habit
-"""
+
 class HabitUpdateView(LoginRequiredMixin, UpdateView):
+    """
+    Habit update view for the habit app
+    This view is used to update an existing habit
+    """
     model = Habit
     template_name = "edit_habit.html"
     success_url = reverse_lazy("dashboard")
@@ -74,29 +91,32 @@ class HabitUpdateView(LoginRequiredMixin, UpdateView):
         return Habit.objects.get(pk=self.kwargs['pk'])
 
 
-"""
-Habit delete view for the habit app
-This view is used to delete an existing habit
-"""
+
 class HabitDeleteView(LoginRequiredMixin, DeleteView):
+    """
+    Habit delete view for the habit app
+    This view is used to delete an existing habit
+    """
     model = Habit
     success_url = reverse_lazy("dashboard")
     template_name = "delete_habit.html"
 
 
-"""
-Home view for the habit app
-This view is used to display the home page
-"""
+
 def home(request):
+    """
+    Home view for the habit app
+    This view is used to display the home page
+    """
     return render(request, "home.html")
 
-"""
-Daily habit view for the habit app
-This view is used to display the daily habits for the user
-"""
+
 @login_required
 def daily_habit(request):
+    """
+    Daily habit view for the habit app
+    This view is used to display the daily habits for the user
+    """
     user = request.user
     today = date.today()
     daily_habits = Habit.objects.filter(user=user, periodicity="daily")
@@ -113,12 +133,13 @@ def daily_habit(request):
     return render(request, "daily_habit.html", context)
 
 
-"""
-Weekly habit view for the habit app
-This view is used to display the weekly habits for the user
-"""
+
 @login_required
 def weekly_habit(request):
+    """
+    Weekly habit view for the habit app
+    This view is used to display the weekly habits for the user
+    """
     user = request.user
     today = date.today()
     weekly_habits = Habit.objects.filter(user=user).filter(periodicity="weekly")
@@ -135,11 +156,10 @@ def weekly_habit(request):
     return render(request, "weekly_habit.html", context)
 
 
-"""Detailed view for the habit
-This view contains analytics such as current streak, longest streak, date streak started
-"""
-
 class HabitDetailView(LoginRequiredMixin, DetailView):
+    """Detailed view for the habit
+    This view contains analytics such as current streak, longest streak, date streak started
+    """
     model = Habit
     template_name = 'habit_detail.html'
     context_object_name = 'habit'
@@ -162,11 +182,12 @@ class HabitDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
-"""
-This view handles the completion of a habit
-"""
+
 @csrf_exempt
 def complete_habit(request, habit_id):
+    """
+    This view handles the completion of a habit
+    """
     if request.method == "POST":
         habit = Habit.objects.get(id=habit_id)
         user = request.user
@@ -179,13 +200,12 @@ def complete_habit(request, habit_id):
         
         return JsonResponse({"success": True})
 
-
-"""
- Handle undoing the completion of a habit
-"""
 @csrf_exempt
 @login_required
 def undo_complete_habit(request, habit_id):
+    """
+    Handle undoing the completion of a habit
+    """
     if request.method == "POST":
         try:
             habit = get_object_or_404(Habit, id=habit_id, user=request.user) 
