@@ -92,6 +92,7 @@ This project uses a `.env` file to store sensitive information like the Django `
 ### 5. Run migrations to create the database
 
 ```bash
+python manage.py makemigrations
 python manage.py migrate
 ```
 

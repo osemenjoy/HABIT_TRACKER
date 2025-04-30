@@ -19,10 +19,6 @@ venv.bak/
 *.log
 local_settings.py
 
-# Static files
-staticfiles/
-static/
-
 
 # Tailwind / Node
 node_modules/

@@ -833,14 +833,6 @@
 },
 {
     "model": "habit.habitcompletion",
-    "pk": 149,
-    "fields": {
-        "habit": 5,
-        "date": "2025-04-30"
-    }
-},
-{
-    "model": "habit.habitcompletion",
     "pk": 150,
     "fields": {
         "habit": 14,
