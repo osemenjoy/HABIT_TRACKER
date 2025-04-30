@@ -125,6 +125,19 @@ python manage.py runserver
 
 Visit [http://127.0.0.1:8000](http://127.0.0.1:8000) to view the app.
 
+### 9. *(Optional)* Run the tests
+
+To run tests, first **stop the development server** by pressing:
+
+```
+Ctrl + C
+```
+
+Then run:
+
+```bash
+python manage.py test
+```
 ---
 
 
